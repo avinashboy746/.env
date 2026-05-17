@@ -1,0 +1,19 @@
+body{
+ background:#020617;
+ color:white;
+ font-family:sans-serif;
+}
+
+.message{
+ background:#111827;
+ border:1px solid #1e293b;
+ box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+button{
+ background:linear-gradient(
+ 45deg,
+ #3b82f6,
+ #8b5cf6
+ );
+}
