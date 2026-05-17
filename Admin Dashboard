@@ -1,0 +1,15 @@
+<div class="admin-panel">
+ <h2>Admin Dashboard</h2>
+
+ <div class="card">
+  Total Users
+ </div>
+
+ <div class="card">
+  Total Coins
+ </div>
+
+ <div class="card">
+  Active Chats
+ </div>
+</div>
