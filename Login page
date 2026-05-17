@@ -1,0 +1,12 @@
+app.post('/guest-login',(req,res)=>{
+
+ const guestToken = jwt.sign({
+  guest:true
+ },process.env.JWT_SECRET);
+
+ res.json({
+  token:guestToken,
+  username:'Guest User'
+ });
+
+});
