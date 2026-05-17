@@ -1,0 +1,10 @@
+function copyText(btn){
+
+ const text =
+ btn.parentElement.innerText;
+
+ navigator.clipboard.writeText(text);
+
+ alert('Copied');
+
+}
