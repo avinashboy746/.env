@@ -1,0 +1,13 @@
+client.on('messageCreate', async(msg)=>{
+
+ if(msg.author.bot) return;
+
+ if(msg.content === '!daily'){
+
+  msg.reply(
+   'You earned 50 coins 💰'
+  );
+
+ }
+
+});
