@@ -1,0 +1,19 @@
+function downloadChat(){
+
+ const text =
+ document.getElementById('messages')
+ .innerText;
+
+ const blob = new Blob([text],{
+  type:'text/plain'
+ });
+
+ const a = document.createElement('a');
+
+ a.href = URL.createObjectURL(blob);
+
+ a.download = 'avinash-ai-chat.txt';
+
+ a.click();
+
+}
