@@ -1,0 +1,16 @@
+@media(max-width:768px){
+
+ .chat-box{
+  padding:10px;
+ }
+
+ textarea{
+  height:80px;
+ }
+
+ button{
+  width:100%;
+  margin-top:10px;
+ }
+
+}
