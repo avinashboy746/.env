@@ -1,0 +1,13 @@
+app.post('/daily-reward', async(req,res)=>{
+
+ const user = await User.findById(req.body.id);
+
+ user.coins += 50;
+
+ await user.save();
+
+ res.json({
+  coins:user.coins
+ });
+
+});
