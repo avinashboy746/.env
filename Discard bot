@@ -1,0 +1,21 @@
+const { Client, GatewayIntentBits } = require('discord.js');
+
+const client = new Client({
+ intents:[
+  GatewayIntentBits.Guilds,
+  GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.MessageContent
+ ]
+});
+
+client.on('messageCreate', async(msg)=>{
+
+ if(msg.author.bot) return;
+
+ if(msg.content === '!ai'){
+  msg.reply('Avinash AI Active ⚡');
+ }
+
+});
+
+client.login('YOUR_DISCORD_TOKEN');
