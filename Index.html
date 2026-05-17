@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Avinash AI</title>
+
+<style>
+body{
+ background:#0f172a;
+ color:white;
+ font-family:sans-serif;
+ margin:0;
+}
+
+.header{
+ padding:20px;
+ background:#111827;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.chat-box{
+ max-width:800px;
+ margin:auto;
+ padding:20px;
+}
+
+.message{
+ background:#1e293b;
+ margin:10px 0;
+ padding:15px;
+ border-radius:15px;
+}
+
+textarea{
+ width:100%;
+ height:100px;
+ border:none;
+ border-radius:12px;
+ padding:15px;
+ font-size:16px;
+}
+
+button{
+ padding:12px 20px;
+ border:none;
+ border-radius:10px;
+ background:#3b82f6;
+ color:white;
+ margin:5px;
+ cursor:pointer;
+}
+
+.controls{
+ margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+ <h2>⚡ Avinash AI</h2>
+
+ <a href="http://localhost:3000/auth/discord">
+  <button>Discord Login</button>
+ </a>
+</div>
+
+<div class="chat-box">
+
+ <div id="messages"></div>
+
+ <textarea id="input"
+ placeholder="Ask anything..."></textarea>
+
+ <div class="controls">
+  <button onclick="sendMessage()">
+   Send
+  </button>
+
+  <button onclick="startVoice()">
+   🎤 Voice
+  </button>
+
+  <button onclick="downloadChat()">
+   Download
+  </button>
+ </div>
+
+</div>
+
+<script>
+
+const recognition =
+ new webkitSpeechRecognition();
+
+recognition.lang = 'en-US';
+
+recognition.onresult = function(event){
+
+ const text = event.results[0][0].transcript;
+
+ document.getElementById('input').value = text;
+
+ sendMessage();
+
+}
+
+function startVoice(){
+ recognition.start();
+}
+
+async function sendMessage(){
+
+ const input = document.getElementById('input');
+ const text = input.value;
+
+ addMessage('🧑 You',text);
+
+ const res = await fetch('http://localhost:3000/api/chat',{
+
+  method:'POST',
+
+  headers:{
+   'Content-Type':'application/json'
+  },
+
+  body:JSON.stringify({
+   message:text
+  })
+
+ });
+
+ const data = await res.json();
+
+ addMessage('🤖 AI',data.reply,true);
+
+ speak(data.reply);
+
+ input.value='';
+
+}
+
+function addMessage(sender,text,ai=false){
+
+ const div = document.createElement('div');
+ div.className='message';
+
+ div.innerHTML = `
+ <b>${sender}</b><br><br>
+ ${text}
+ <br><br>
+ <button onclick="copyText(this)">
+  Copy
+ </button>
+ `;
+
+ document.getElementById('messages')
+ .appendChild(div);
+
+}
+
+function copyText(btn){
+
+ const text =
+ btn.parentElement.innerText;
+
+ navigator.clipboard.writeText(text);
+
+ alert('Copied');
+
+}
+
+function downloadChat(){
+
+ const text =
+ document.getElementById('messages')
+ .innerText;
+
+ const blob = new Blob([text],{
+  type:'text/plain'
+ });
+
+ const a = document.createElement('a');
+
+ a.href = URL.createObjectURL(blob);
+
+ a.download = 'chat.txt';
+
+ a.click();
+
+}
+
+function speak(text){
+
+ const speech =
+ new SpeechSynthesisUtterance(text);
+
+ speech.lang='en-US';
+
+ window.speechSynthesis.speak(speech);
+
+}
+
+</script>
+
+</body>
+  </html>
