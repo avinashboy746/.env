@@ -1,0 +1,10 @@
+const UserSchema = new mongoose.Schema({
+ username:String,
+ email:String,
+ password:String,
+ discordId:String,
+ coins:{
+  type:Number,
+  default:100
+ }
+});
